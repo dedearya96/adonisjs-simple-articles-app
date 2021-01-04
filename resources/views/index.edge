@@ -1,0 +1,37 @@
+@layout('layouts/master')
+@section('content')
+
+<div class="container">
+    <div class="text-center">
+        @if(flashMessage('successmessage'))
+            <span class="alert alert-success p-1">{{ flashMessage('successmessage') }}</span>
+        @endif
+    </div>
+    <div class="row">
+        @each(article in articles)
+            <div class="col-md-3 mb-3 quote-wrapper">
+                <a href="/view-articles/{{article.id}}" class="w-100">
+                    <div class="card">
+                        <div class="card-body">
+                           <p>{{article.title}}</p>
+                            <div class="text-small">
+                              <p>{{article.description}}</p></div>
+                            @loggedIn
+                              <div>
+                                <a href="/edit-articles/{{article.id}}" class="btn btn-success">Edit</a>
+                                <a href="/delete-articles/{{article.id}}" class="btn btn-danger">Delete</a>
+                                 <a href="/view-articles/{{article.id}}" class="btn btn-primary">Show</a>
+                              </div>
+                             @endloggedIn
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @else
+         <div class="col-md-12 empty-quote text-center">
+                <p>No inspirational quote has been created</p>
+         </div>
+        @endeach
+    </div>
+</div>
+@endsection
